@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.kotlincoroutines_codienger.databinding.ActivityMainBinding
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -13,12 +14,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btn.setOnClickListener {
-            doSomeTask()
+            CoroutineScope(Dispatchers.IO).launch {
+                doSomeTaskWithCoroutines()
+            }
         }
     }
 
-    private fun doSomeTask() {
-        Thread.sleep(5000)
-        Toast.makeText(this,"Task Done",Toast.LENGTH_LONG).show()
+    private suspend fun doSomeTaskWithCoroutines() {
+        delay(5000)
+        withContext(Dispatchers.Main) {
+            Toast.makeText(this@MainActivity,"Task Done", Toast.LENGTH_LONG).show()
+        }
     }
 }
