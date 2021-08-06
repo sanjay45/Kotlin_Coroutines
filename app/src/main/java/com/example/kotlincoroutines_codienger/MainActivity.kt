@@ -1,5 +1,6 @@
 package com.example.kotlincoroutines_codienger
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -14,26 +15,22 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        GlobalScope.launch {
-            Log.i("MainActivity", "Thread name: ${Thread.currentThread().name}")
-            Log.i("MainActivity", "Start :")
-            networkCall1()
-            //networkCall2()
-            Log.i("MainActivity", "End :")
+        binding.button.setOnClickListener {
+            navigateToNextActivity()
+            finish()
         }
+
+        GlobalScope.launch {
+            while (true) {
+                Log.i("Global","onCreate")
+                delay(2000)
+            }
+        }
+
     }
 
-    private suspend fun networkCall1() {
-        delay(3000)
-        Log.i("MainActivity", "networkCall1 :")
-        networkCall2()
-    }
-
-    //    private suspend fun networkCall2() {
-//        delay(3000)
-//        Log.i("MainActivity","networkCall2 : called inside from network1()")
-//    }
-    private fun networkCall2() {
-        Log.i("MainActivity", "networkCall2 : called inside from network1()")
+    private fun navigateToNextActivity() {
+        val intent = Intent(this,NextActivity::class.java)
+        startActivity(intent)
     }
 }
