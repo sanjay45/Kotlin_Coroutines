@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import com.example.kotlincoroutines_codienger.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
 
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-        GlobalScope.launch {
+        lifecycleScope.launch {
             while (true) {
                 Log.i("Global","onCreate")
                 delay(2000)
