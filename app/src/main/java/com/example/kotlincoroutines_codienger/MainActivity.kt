@@ -20,18 +20,32 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.button.setOnClickListener {
-            navigateToNextActivity()
-            finish()
+        lifecycleScope.launch {
+            //testLaunch()
+            testAsync()
         }
 
-        mainViewModel.run()
-
-
     }
 
-    private fun navigateToNextActivity() {
-        val intent = Intent(this,NextActivity::class.java)
-        startActivity(intent)
+    private suspend fun testLaunch() {
+       val job =  lifecycleScope.launch {
+            delay(5000)
+            Log.i("MainActivity","5 seconds to finish")
+        }
+        // If want to run this "test: " after delaying 5 sec then we have to use  job.join()
+        job.join()
+        Log.i("MainActivity","testLaunch: ")
     }
+
+    private suspend fun testAsync() {
+        val deferred: Deferred<String> = lifecycleScope.async {
+            delay(5000)
+            Log.i("MainActivity","5 seconds to finish")
+            "Return value of async()"
+        }
+
+      val value = deferred.await()
+        Log.i("MainActivity","testAsync: $value")
+    }
+
 }
