@@ -15,21 +15,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         GlobalScope.launch {
-            Log.i("MainActivity","Thread name: ${Thread.currentThread().name}")
-            Log.i("MainActivity","Start :")
+            Log.i("MainActivity", "Thread name: ${Thread.currentThread().name}")
+            Log.i("MainActivity", "Start :")
             networkCall1()
             //networkCall2()
-            Log.i("MainActivity","End :")
+            Log.i("MainActivity", "End :")
         }
     }
 
     private suspend fun networkCall1() {
         delay(3000)
-        Log.i("MainActivity","networkCall1 :")
+        Log.i("MainActivity", "networkCall1 :")
         networkCall2()
     }
-    private suspend fun networkCall2() {
-        delay(3000)
-        Log.i("MainActivity","networkCall2 : called inside from network1()")
+
+    //    private suspend fun networkCall2() {
+//        delay(3000)
+//        Log.i("MainActivity","networkCall2 : called inside from network1()")
+//    }
+    private fun networkCall2() {
+        Log.i("MainActivity", "networkCall2 : called inside from network1()")
     }
 }
