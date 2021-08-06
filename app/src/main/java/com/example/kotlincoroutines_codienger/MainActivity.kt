@@ -14,13 +14,21 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Log.i("MainActivity","onCreate : ${Thread.currentThread().name}")
-
         GlobalScope.launch {
-            Log.i("MainActivity","coroutine launch in : ${Thread.currentThread().name}")
-            delay(3000)
-            Log.i("MainActivity","coroutine launch in : ${Thread.currentThread().name}")
+            Log.i("MainActivity","Thread name: ${Thread.currentThread().name}")
+            Log.i("MainActivity","Start :")
+            networkCall1()
+            networkCall2()
+            Log.i("MainActivity","End :")
         }
+    }
 
+    private suspend fun networkCall1() {
+        delay(3000)
+        Log.i("MainActivity","networkCall1 :")
+    }
+    private suspend fun networkCall2() {
+        delay(3000)
+        Log.i("MainActivity","networkCall2 :")
     }
 }
