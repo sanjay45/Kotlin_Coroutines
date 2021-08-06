@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
             Log.i("MainActivity","Thread name: ${Thread.currentThread().name}")
             Log.i("MainActivity","Start :")
             networkCall1()
-            networkCall2()
+            //networkCall2()
             Log.i("MainActivity","End :")
         }
     }
@@ -26,9 +26,10 @@ class MainActivity : AppCompatActivity() {
     private suspend fun networkCall1() {
         delay(3000)
         Log.i("MainActivity","networkCall1 :")
+        networkCall2()
     }
     private suspend fun networkCall2() {
         delay(3000)
-        Log.i("MainActivity","networkCall2 :")
+        Log.i("MainActivity","networkCall2 : called inside from network1()")
     }
 }
